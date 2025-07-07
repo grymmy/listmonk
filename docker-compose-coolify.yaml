@@ -1,0 +1,27 @@
+services:
+  # listmonk app - configured for Coolify with external managed postgres via DATABASE_URL
+  app:
+    image: listmonk/listmonk:latest
+    container_name: listmonk_app
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    hostname: listmonk.example.com
+    command: ["/init-db.sh"]
+    environment:
+      # App configuration
+      LISTMONK_app__address: 0.0.0.0:9000
+      
+      # Database connection using single DATABASE_URL (parsed by init script)
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_SSL_MODE: ${DATABASE_SSL_MODE:-require}
+      
+      # General settings
+      TZ: Etc/UTC
+      
+      # Optional: Admin user auto-creation (set these in Coolify environment)
+      LISTMONK_ADMIN_USER: ${LISTMONK_ADMIN_USER:-}
+      LISTMONK_ADMIN_PASSWORD: ${LISTMONK_ADMIN_PASSWORD:-}
+    volumes:
+      - ./uploads:/listmonk/uploads:rw
+      - ./init-db.sh:/init-db.sh:ro 
