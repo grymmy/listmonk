@@ -3,9 +3,21 @@
 set -e  # Exit on any error
 set -x  # Print commands as they execute
 
+echo "=== COOLIFY DEBUG: SCRIPT STARTING ==="
+echo "=== COOLIFY DEBUG: Current timestamp: $(date) ==="
+echo "=== COOLIFY DEBUG: Sleep 5 seconds to ensure log capture ==="
+sleep 15
+
+echo "=== COOLIFY DEBUG: Sleep complete, continuing... ==="
+echo "=== COOLIFY DEBUG: Another 3 second pause ==="
+sleep 3
+
 echo "=== INIT-DB.SH STARTING ==="
 echo "Current working directory: $(pwd)"
 echo "Available files: $(ls -la)"
+
+echo "=== COOLIFY DEBUG: About to check DATABASE_URL ==="
+sleep 2
 
 # Parse DATABASE_URL into individual components for listmonk
 if [ -z "$DATABASE_URL" ]; then
@@ -57,6 +69,9 @@ echo "Database config: $DB_USER@$DB_HOST:$DB_PORT/$DB_NAME (SSL: ${DATABASE_SSL_
 # Print all LISTMONK env vars for debugging
 echo "=== LISTMONK ENVIRONMENT VARIABLES ==="
 env | grep LISTMONK || echo "No LISTMONK env vars found"
+
+echo "=== COOLIFY DEBUG: About to start listmonk installation ==="
+sleep 2
 
 # Run listmonk with installation and upgrade
 echo "=== STARTING LISTMONK INSTALLATION ==="
