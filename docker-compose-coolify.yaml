@@ -7,7 +7,7 @@ services:
     ports:
       - "9000:9000"
     hostname: listmonk.example.com
-    command: ["/init-db.sh"]
+    command: ["sh", "/init-db.sh"]
     environment:
       # App configuration
       LISTMONK_app__address: 0.0.0.0:9000
