@@ -1,0 +1,8 @@
+FROM listmonk/listmonk:latest
+
+# Copy our init script into the container
+COPY init-db.sh /init-db.sh
+RUN chmod +x /init-db.sh
+
+# Use our script as the entrypoint
+ENTRYPOINT ["/init-db.sh"] 

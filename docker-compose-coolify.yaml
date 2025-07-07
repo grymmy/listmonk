@@ -1,13 +1,14 @@
 services:
   # listmonk app - configured for Coolify with external managed postgres via DATABASE_URL
   app:
-    image: listmonk/listmonk:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.coolify
     container_name: listmonk_app
     restart: unless-stopped
     ports:
       - "9000:9000"
     hostname: listmonk.example.com
-    entrypoint: ["sleep", "infinity"]
     environment:
       # App configuration
       LISTMONK_app__address: 0.0.0.0:9000
@@ -23,5 +24,4 @@ services:
       LISTMONK_ADMIN_USER: ${LISTMONK_ADMIN_USER:-}
       LISTMONK_ADMIN_PASSWORD: ${LISTMONK_ADMIN_PASSWORD:-}
     volumes:
-      - ./uploads:/listmonk/uploads:rw
-      - ./init-db.sh:/init-db.sh:ro 
+      - ./uploads:/listmonk/uploads:rw 
